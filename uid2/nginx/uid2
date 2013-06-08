@@ -3,6 +3,7 @@ SITES_PATH="/var/www/production/uid2/uid2"
 RUNFILES_PATH="/var/run"
 PID_NAME=uid2.pid
 SOCK_NAME=uid2.socket
+SETTINGS=uid2.settings
 # BIN_PYTHON="/var/www/production/bin/python"
 BIN_PYTHON="python"
 RUN_AS=root
@@ -25,7 +26,7 @@ d_start()
         echo -n " already running"
     else
         echo "$BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=govipr.settings method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME"
-        $BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=govipr.settings method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME
+        $BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=$SETTINGS method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME
     fi
     # let "PORT = $PORT + 1"
 }
