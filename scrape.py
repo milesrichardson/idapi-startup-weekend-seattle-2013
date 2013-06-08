@@ -2,6 +2,7 @@
 
 import urllib, urllib2
 import os
+import argparse
 
 familywatchdog_url = "http://www.familywatchdog.us/ShowMap_Status.asp" # for map view
 familywatchdog_url = "http://www.familywatchdog.us/ShowList.asp" # for map list view (not working)
@@ -18,18 +19,32 @@ lastname = "Smith"
 firstname = "John"
 statecode = 'CA'
 
-payload = { 'txtLastName': lastname, 
-			'txtFirstName': firstname,
-			'txtState': statecode,}
-payload = urllib.urlencode(payload)
+def get_familywatchdog_results(firstname="John", lastname="Smith", statecode="CA"):
+	payload = { 'txtLastName': lastname, 
+				'txtFirstName': firstname,
+				'txtState': statecode,}
+	payload = urllib.urlencode(payload)
 
-response = urllib2.urlopen(url=familywatchdog_url, data=payload)
+	response = urllib2.urlopen(url=familywatchdog_url, data=payload)
 #print response.read()
 
-temp_filename = 'temp.html'
-curdir = os.path.realpath(os.curdir)
-f = open(os.path.join(curdir, temp_filename), 'w')
-f.write(response.read())
+	temp_filename = 'temp.html'
+	curdir = os.path.realpath(os.curdir)
+	f = open(os.path.join(curdir, temp_filename), 'w')
+	f.write(response.read())
+	f.close()
 
-print os.path.join(curdir, temp_filename)
-f.close()
+	print os.path.join(curdir, temp_filename)
+
+
+def main():
+	parser = argparse.ArgumentParser(description='Get FamilyWatchDog Report')
+	parser.add_argument('--firstname', nargs='?', const=1, help="First Name of Person" )
+	parser.add_argument('--lastname', nargs='?', const=1, help="Last Name of Person" )
+	parser.add_argument('--statecode', nargs='?', const=1, help="Two Character State Code" )
+	args = parser.parse_args()
+
+	get_familywatchdog_results(args.firstname, args.lastname, args.statecode)
+
+if __name__=="__main__":
+	main()
