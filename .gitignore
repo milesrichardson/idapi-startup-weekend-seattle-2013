@@ -33,3 +33,12 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# OS X
+.DS_Store
+
+# vim files
+*.swp
+
+# run shell script
+run.sh
