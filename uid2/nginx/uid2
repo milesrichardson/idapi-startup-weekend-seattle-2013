@@ -1,0 +1,72 @@
+#!/bin/bash
+SITES_PATH="/var/www/production/uid2/uid2"
+RUNFILES_PATH="/var/run"
+PID_NAME=uid2.pid
+SOCK_NAME=uid2.socket
+# BIN_PYTHON="/var/www/production/bin/python"
+BIN_PYTHON="python"
+RUN_AS=root
+FCGI_METHOD=threaded
+set -e
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="FastCGI servers"
+NAME=$0
+SCRIPTNAME=/etc/init.d/$NAME
+
+#
+#       Function that starts the daemon/service.
+#
+d_start()
+{
+    # Starting all Django FastCGI processes
+    PORT=$PORT_START
+    echo -n ", $SITE"
+    if [ -f $RUNFILES_PATH/$PID_NAME ]; then
+        echo -n " already running"
+    else
+        echo "$BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=govipr.settings method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME"
+        $BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=govipr.settings method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME
+    fi
+    # let "PORT = $PORT + 1"
+}
+
+#
+#       Function that stops the daemon/service.
+#
+d_stop() {
+    # Killing all Django FastCGI processes running
+        echo -n ", $SITE"
+        start-stop-daemon --stop --quiet --pidfile $RUNFILES_PATH/$PID_NAME \
+                          || echo -n " not running"
+        if [ -f $RUNFILES_PATH/$PID_NAME ]; then
+           rm -f $RUNFILES_PATH/$PID_NAME
+        fi
+}
+
+ACTION="$1"
+case "$ACTION" in
+    start)
+        echo -n "Starting $DESC: $NAME"
+        d_start
+        echo "."
+        ;;
+
+    stop)
+        echo -n "Stopping $DESC: $NAME"
+        d_stop
+        echo "."
+        ;;
+
+    restart|force-reload)
+        echo -n "Restarting $DESC: $NAME"
+        d_stop
+        sleep 1
+        d_start
+        echo "."
+        ;;
+
+    *)
+        echo "Usage: $NAME {start|stop|restart|force-reload}" >&2
+        exit 3
+        ;;
+esac
