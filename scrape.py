@@ -19,6 +19,7 @@ lastname = "Smith"
 firstname = "John"
 statecode = 'CA'
 
+
 def get_familywatchdog_results(firstname="John", lastname="Smith", statecode="CA"):
 	payload = { 'txtLastName': lastname, 
 				'txtFirstName': firstname,
@@ -31,15 +32,21 @@ def get_familywatchdog_results(firstname="John", lastname="Smith", statecode="CA
 	temp_filename = 'temp.html'
 	curdir = os.path.realpath(os.curdir)
 	f = open(os.path.join(curdir, temp_filename), 'w')
-	f.write(response.read())
+	response_body = response.read()
+	f.write(response_body)
 	f.close()
+
+	NO_OFFENDERS = 'No offenders found.'
+
+	#if 
+
 
 	print os.path.join(curdir, temp_filename)
 
 
 def main():
 	parser = argparse.ArgumentParser(description='Get FamilyWatchDog Report')
-	parser.add_argument('--firstname', nargs='?', const=1, help="First Name of Person" )
+	parser.add_argument('--firstname', '-first', nargs='?', const=1, help="First Name of Person" )
 	parser.add_argument('--lastname', nargs='?', const=1, help="Last Name of Person" )
 	parser.add_argument('--statecode', nargs='?', const=1, help="Two Character State Code" )
 	args = parser.parse_args()
