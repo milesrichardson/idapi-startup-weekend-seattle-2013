@@ -26,7 +26,7 @@ d_start()
         echo -n " already running"
     else
         echo "$BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=govipr.settings method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME"
-        $BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=$SETTINGS method=$FCGI_METHOD socket=$RUNFILES_PATH/SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME
+        $BIN_PYTHON $SITES_PATH/manage.py runfcgi --settings=$SETTINGS method=$FCGI_METHOD socket=$RUNFILES_PATH/$SOCK_NAME pidfile=$RUNFILES_PATH/$PID_NAME
     fi
     # let "PORT = $PORT + 1"
 }
