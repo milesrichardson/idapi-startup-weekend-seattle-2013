@@ -3,6 +3,7 @@
 import urllib, urllib2
 import os
 import argparse
+import uuid
 
 familywatchdog_url = "http://www.familywatchdog.us/ShowMap_Status.asp" # for map view
 familywatchdog_url = "http://www.familywatchdog.us/ShowList.asp" # for map list view (not working)
@@ -26,15 +27,14 @@ def get_familywatchdog_results(firstname="John", lastname="Smith", statecode="CA
 	payload = urllib.urlencode(payload)
 
 	response = urllib2.urlopen(url=familywatchdog_url, data=payload)
-#print response.read()
 
-	temp_filename = 'temp.html'
+	temp_filename = str(uuid.uuid4())[:10] + '.html'
 	curdir = os.path.realpath(os.curdir)
-	f = open(os.path.join(curdir, temp_filename), 'w')
+	f = open(os.path.join(curdir, 'tmp', temp_filename), 'w')
 	f.write(response.read())
 	f.close()
 
-	print os.path.join(curdir, temp_filename)
+	print os.path.join(curdir, 'tmp', temp_filename)
 
 
 def main():
