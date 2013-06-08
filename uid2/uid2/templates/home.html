@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block pagetitle %}AudioNotch{% endblock %}
+{% block first_imports %}
+<link rel="canonical" href="http://www.audionotch.com"/>
+<!-- Google Analytics Content Experiment code -->
+<!-- Google Analytics Content Experiment code -->
+<script>function utmx_section(){}function utmx(){}(function(){var
+k='56591514-2',d=document,l=d.location,c=d.cookie;
+if(l.search.indexOf('utm_expid='+k)>0)return;
+function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
+indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
+length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
+'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
+'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
+'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
+valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
+</script><script>utmx('url','A/B');</script>
+<!-- End of Google Analytics Content Experiment code -->
+{% endblock %}
+{% block javascript %}
+<script src="{{STATIC_URL}}js/jstz.min.js"></script> <!-- timezone support -->
+<script>
+  var timezone;
+  $(document).ready(function(){
+  timezone = jstz.determine_timezone();
+  $('#tz').append(timezone.name());  
+  document.getElementById('tz').value=timezone.name();
+});  
+</script>
+<script src="{{STATIC_URL}}js/jquery.infieldlabel.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+$("label").inFieldLabels();
+ });
+</script>
+{% endblock %}
+{% block app_nav2 %}{% endblock %}
+{% block pageheading %}<h1 class="heading">AudioNotch is <em>tinnitus treatment</em> through customized sound therapy</h1>{% endblock %}
+{% block content %}   
+<div class="first-box">
+    <iframe class="shadow" src="http://player.vimeo.com/video/37414892?byline=0&amp;color=ff9000" width="600" height="337" frameborder="0"></iframe>
+  <div class="main-video">
+  </div>
+<div class="form-wrap floatright form-width create-form">
+  {% include 'signup.html' %}
+</div> <!-- end form-wrap -->
+</div> <!-- end first-box -->
+<!-- <h2>Tailor-Made Notched Sound Therapy</h2> -->
+<p>AudioNotch uses a <a href="/how-it-works" onClick="_gaq.push(['_trackEvent', 'in text link', 'FAQ', 'landing science']);">scientifically proven</a> tinnitus treatment that reduces the volume of your tinnitus by targeting the root cause.<!-- </p><p> --> You can create <strong>notched music therapy</strong> with your own music, <strong>notched white noise therapy</strong> and <strong>notched <a href="/tinnitus-masker">masking sound</a> therapy</strong> with our sounds.</p>
+  <ul class="selling-points">
+    <li>
+      <h3>Powered by Clinical Research.</h3>
+      <p>The usage of notched music therapy has been <a href="/FAQ#science" onClick="_gaq.push(['_trackEvent', 'in text link', 'FAQ', 'landing points']);">experimentally shown</a> to reduce the volume of your tinnitus tone over time.</p>
+    </li>
+    <li>
+      <h3>Money Back Guarantee.</h3>
+      <p>We are confident in our solution, and if you're not happy we'll give you your money back within 30 days.</p>
+    </li>
+    <li>
+      <h3>Customized for You.</h3>
+      <p>
+	Everyone's tinnitus is a little different. Our therapy selectively targets the neurons that cause your tinnitus. Read more about <a href="/how-it-works" onClick="_gaq.push(['_trackEvent', 'in text link', 'how-it-works', 'landing points']);">how it works</a>.
+      </p>
+    </li>
+  </ul>
+  <div class="quote-box">
+    <h4><em>"I went from a 9 to 2 within 4 weeks of using AudioNotch"</em></h4>
+    <p>I have had tinnitus for many years now, and on a scale of 1-10, with 10 being unbearable pain, I went from a 9 to a 2 within in 4 weeks of using AudioNotch. I was so impressed with your product, that I started my own radio show to help other people who suffer with tinnitus, and I work with Veterans who have it. 
+<!-- My new radio show to help suffers of tinnitus is: http://tinyurl.com/ring247. -->
+Thank you,
+    </p>
+    <p class="source">Andy N., AudioNotch.com Customer, and Radio Host on the Internet</p>
+  </div>
+  <div class="quote-box">
+    <h4><em>"I have experienced a noticeable reduction in my tinnitus volume"</em></h4>
+    <p>I have been using the AudioNotch tinnitus therapy for  three weeks.  I prefer the white noise therapy as it allows me to work at the same time with minimal distraction.  I have experienced a noticeable reduction in my tinnitus volume.  Needless to say, I am more than happy with the results to this point.  I sincerely hope others can benefit from the information and specific guidance and tools provided by AudioNotch.
+    </p>
+    <p class="source">Charles D., AudioNotch.com Customer</p>
+  </div>
+<div class="my-story">
+  <h2><em>Press and Awards</em></h2>
+</div>
+<p><em>Click to read original stories</em></p>
+  <a href="http://www.thespec.com/news/business/article/760647--mac-student-tackles-tinnitus" rel="nofollow"  target="_blank" onClick="_gaq.push(['_trackEvent', 'link', 'homepage', 'spec']);"><img style="margin-top:-8px;" width="298" height="114" alt="Hamilton Spectator logo" src="{{STATIC_URL}}images/press/spec.jpg"></a>
+  <div width="700px"><a href="http://www.thesil.ca/?p=4584" rel="nofollow"  target="_blank" onClick="_gaq.push(['_trackEvent', 'link', 'homepage', 'sil']);"><img width="414" height="66" alt="Silhouette logo" src="{{STATIC_URL}}images/press/sil.jpg"></a></div>
+<a href="http://www.chron.com/business/press-releases/article/Tinnitus-Treatment-Goes-Online-with-Notched-Sound-3575871.php" rel="nofollow" target="_blank" onClick="_gaq.push(['_trackEvent', 'link', 'homepage', 'chron']);"><img width="293" height="57" alt="Houston Chronicle Article" src="{{STATIC_URL}}images/press/chron.png"></a>
+{% endblock %}
