@@ -55,7 +55,7 @@ class FieldValue(models.Model):
 # first_name = "Miles"
 # last_name = "Richardson"
 # ssn = '628-26-2612'
-# profile = FieldValueModel.Objects.all(field=field.Objects.get(name='first_name'), value=first_name)\
+# profile = FieldValueModel.Objects.all(field=field.Objects.get(name='first_name'), pytvalue=first_name)\
 # 			.Objects.all(field=field.Objects.get(name='last_name'), value=last_name)\
 # 			.Objects.all(field=field.Objects.get(name='ssn', value=ssn))\
 # 			.profile

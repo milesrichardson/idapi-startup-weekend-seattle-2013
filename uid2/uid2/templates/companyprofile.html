@@ -5,27 +5,15 @@
 			<h1> Redfin Company Queries</h1>
 			</h1>
 			<ul class="thumbnails">
+				{% for profile in profiles %}
 				 <li class="span4">
-				    <div class="thumbnail">
-				      <h3>Aaron Jeffery</h3>
-				      <h4>Status: Failed </h4>
-				      <h4> <a href="/api/person/id=12331"> View Profile </a> </h4> 
+				    <div class="thumbnail" style="border-width:5px; ">
+				      <h3 style="font-size:20px">{{profile.0}} {{profile.1}}</h3>
+				      <h4>Status: {{profile.2}} </h4>
+				      <h4> <a href="#"> View Profile </a> </h4> 
 				    </div>
 				 </li>
-				 <li class="span4">
-				    <div class="thumbnail">
-				      <h3>Michael Zhao</h3>
-				      <h4>Status: Passed</h4>
-				      <h4> <a href="/api/person/id=12378"> View Profile </a> </h4> 
-				    </div>
-				 </li>
-				 <li class="span4 after">
-				    <div class="thumbnail">
-				      <h3>Jon Jia</h3>
-				      <h4>Status: Passed</h4>
-				      <h4> <a href="/api/person/id=12345"> View Profile </a> </h4> 
-				    </div>
-				 </li>
+				 {% endfor %}
 			</ul>
 		</div>
 	</div>
