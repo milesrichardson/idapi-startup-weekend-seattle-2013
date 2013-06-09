@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-#!../bin/python
-
->>>>>>> 8aba2d251146fe0b7454e521643ca21488029bf4
 import urllib, urllib2
 import os
 import argparse
