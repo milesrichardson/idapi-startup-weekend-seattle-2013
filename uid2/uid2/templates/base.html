@@ -1,0 +1,125 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>govipr</title>
+    <meta name="author" content="Adrian Green, adriancagreen.com, theadriangreen@gmail.com">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+    <link rel="icon" type="image/png" href="{{STATIC_URL}}images/favicons/32-2.png">
+    <script type="text/javascript">
+    </script>
+    {% block imports %}{% endblock %}
+  </head>
+  <body>
+    <div id="top">
+      <div class="header container">
+	<a href="/" onClick="_gaq.push(['_trackEvent', 'nav', 'logo', 'not signed in']);">
+	  <img src="{{STATIC_URL}}images/logo-site.png" class="logo" height="70" width="318" alt="AudioNotch.com: Tailor-Made Notched Sound Therapy for Tinnitus, site logo">
+	</a>
+	<div id="user"> 
+	  {% if user.is_authenticated %}	  
+	  <a href="/accounts/logout" id="sign_in_btn" title="Sign out" onClick="_gaq.push(['_trackEvent', 'registration', 'signout', 'sign_in_btn']);">
+	    <img src="{{STATIC_URL}}images/user.png" alt="AudioNotch user logo" height="8" width="9"><span>Sign out</span></a>
+	  {% else %}
+	  <a href="/accounts/login" id="sign_in_btn" title="Please sign in" onClick="_gaq.push(['_trackEvent', 'registration', 'signin', 'sign_in_btn']);">
+	    <img src="{{STATIC_URL}}images/user.png" alt="AudioNotch user logo" height="8" width="9"><span>Sign in</span>
+	  </a>
+	  {% endif %}	</div>
+	<div class="nav">
+	  <a href="/how-it-works" rel="nofollow" title="How it Works" onClick="_gaq.push(['_trackEvent', 'nav', 'how-it-works', '']);">How it Works</a>
+	  <a href="/FAQ" title="FAQ" onClick="_gaq.push(['_trackEvent', 'nav', 'FAQ', '']);">FAQ</a>
+	  <a href="/pricing" rel="nofollow" title="Pricing" onClick="_gaq.push(['_trackEvent', 'nav', 'pricing', '']);">Pricing</a>
+	  <a href="/blog" title="Blog" onClick="_gaq.push(['_trackEvent', 'nav', 'blog', '']);">Blog</a>
+	  <a href="/contact" rel="nofollow" title="Contact" onClick="_gaq.push(['_trackEvent', 'nav', 'contact', '']);">Contact Us</a>
+	</div>
+      </div>
+    </div>
+    <div id="main" {% block bodytag %}{% endblock %}>
+      <div class="tab_container">
+	{% if user.is_authenticated %}
+	<ul id="app_nav" class="app_nav signed-in">
+	{% block app_nav %}  
+	  <li><a href="/app/" onClick="_gaq.push(['_trackEvent', 'app_nav', 'home', 'signed in']);"><img height="64" width="64" alt="Home icon" src="{{STATIC_URL}}images/app_nav/home.png"/>
+	      <span class="text">Home</span></a></li>
+	  <li id="tune_button"><a href="/app/tune" onClick="_gaq.push(['_trackEvent', 'app_nav', 'tune', 'signed in']);"><img height="64" width="64" alt="Step 2: Tune" src="{{STATIC_URL}}images/app_nav/tune.png"/>
+	      <span class="text">Tune</span></a></li>
+	  <li><a class="" href="/app/create" onClick="_gaq.push(['_trackEvent', 'app_nav', 'create', 'signed in']);"><img height="64" width="64" alt="Step 3: Create" src="{{STATIC_URL}}images/app_nav/cd.png"/>
+	      <span class="text">Create</span></a></li>
+	  <li><a href="/app/listen" onClick="_gaq.push(['_trackEvent', 'app_nav', 'listen', 'signed in']);"><img height="64" width="64" img="Step 3: Listen" src="{{STATIC_URL}}images/app_nav/listen.png"/>
+	      <span class="text">Listen</span></a></li>
+	{% endblock %}
+	</ul>	
+	{% else %}
+	{% block app_nav2 %}
+	<a id="signupbutton" href="/account/register/" onClick="_gaq.push(['_trackEvent', 'registration', 'app_nav', 'signup button']);">Sign up!</a>
+	{% endblock %}
+	{% endif %}
+      </div>
+      {% block pageheading %}{% endblock %}      
+      {% block forms %}
+      <div class="main-box container">
+	<div class="pageheading2">
+	  <h1>{% block pageheading2 %}{% endblock %}</h1>
+	</div>
+	{% block content %} 
+	{% endblock %}
+      </div>
+      {% endblock %}
+      {% block social %}
+      <!-- social stuff -->
+      <div style="margin-top:-15px;position:relative;left:1170px;height:20px;width:200px;">
+      	<div  style="position:relative;margin:-40px 0 0 30px;" class="fb-like" data-href="https://www.facebook.com/audionotch" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+      	<div style="position:relative;margin:-20px 0 0 -170px;"><a rel="nofollow" href="https://twitter.com/share" class="twitter-share-button" data-via="AudioNotch" data-hashtags="tinnitus" data-dnt="true">Tweet</a></div>
+      <!-- 	<div style="margin-left:-56px;margin-top:-23px;;"><div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div></div> -->
+      </div>
+<!-- social stuff -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% endblock %}
+    </div>
+    <div id="bottom">
+      <div class="footer container">
+	<ul class="footer-sitemap">
+	  <li><a href="/" onClick="_gaq.push(['_trackEvent', 'sitemap', 'home', '']);">Home</a></li>
+	  <li><a href="/app/tune" onClick="_gaq.push(['_trackEvent', 'sitemap', 'tune', '']);">Tuner</a></li>
+	  <li><a href="/tinnitus-masker" onClick="_gaq.push(['_trackEvent', 'sitemap', 'tinnitus masker', '']);">Tinnitus Masker</a></li>
+	  <li><a href="/pricing" onClick="_gaq.push(['_trackEvent', 'sitemap', 'pricing', '']);">Pricing</a></li>
+	  <li><a href="/legal" rel="nofollow" title="Legal" onClick="_gaq.push(['_trackEvent', 'sitemap', 'legal', '']);">Legal</a></li>
+	  <li><a href="/how-it-works" rel="nofollow" onClick="_gaq.push(['_trackEvent', 'sitemap', 'how-it-works', '']);">How it Works</a></li>
+	  <li><a href="/FAQ" onClick="_gaq.push(['_trackEvent', 'sitemap', 'FAQ', '']);">FAQ</a></li>
+	  <li><a href="/contact" rel="nofollow" onClick="_gaq.push(['_trackEvent', 'sitemap', 'contact', '']);">Contact Us</a></li>
+	  <li><a href="/clinic" rel="nofollow" onClick="_gaq.push(['_trackEvent', 'sitemap', 'clinc', '']);">Clinic</a></li>
+	  <li><a href="/blog" onClick="_gaq.push(['_trackEvent', 'sitemap', 'blog', '']);">Blog</a></li>
+	  <li><a href="/audiology" rel="nofollow" title="About Us" onClick="_gaq.push(['_trackEvent', 'sitemap', 'audiology', '']);">Audiologists</a></li>
+	  <li><a href="/about" rel="nofollow" title="About Us" onClick="_gaq.push(['_trackEvent', 'sitemap', 'about_us', '']);">About Us</a></li>
+	</ul>
+	<div style="float:right;margin:5px 0 15px 0;"> &#169; 2013 Audio Notch</div>
+      </div>
+    </div>
+  </body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{STATIC_URL}}js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+    {% block javascript %}{% endblock %} 
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+	 chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7 ]>
+	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+	<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+	<![endif]-->
+</body>
+</html>
