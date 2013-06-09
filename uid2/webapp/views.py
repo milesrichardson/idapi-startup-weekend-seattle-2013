@@ -39,8 +39,7 @@ def redfin(request,template):
         return render_to_response('Identity.html', context_instance=RequestContext(request))
 
 def verify(request):
-    # For now, we just create a new profile on every new query.
-    # TODO: Create scoring system for same profile (% of matching fields?)
+    
     profile = Profile.objects.create()
     profile.save()
 
