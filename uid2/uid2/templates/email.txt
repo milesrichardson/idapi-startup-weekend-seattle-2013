@@ -1,0 +1,8 @@
+Background check complete for {{name}}!
+Your background check is complete!<br>
+The candidate: failed
+<p><a href="idapi.co/api/person/id=12345">Background check information</a></p>
+<br>  Sincerely,<br>
+    <br>
+      The IDAPI Team<br>
+	<br>

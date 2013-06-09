@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError, Http404, HttpResponseBadRequest
+from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
+from django.template.loader import get_template
 from webapp.models import *
 import json
 import random
@@ -37,7 +39,6 @@ def redfin(request,template):
         return render_to_response('Identity.html', context_instance=RequestContext(request))
 
 def verify(request):
-
     # For now, we just create a new profile on every new query.
     # TODO: Create scoring system for same profile (% of matching fields?)
     profile = Profile.objects.create()
@@ -45,7 +46,6 @@ def verify(request):
 
     # Add all the fields that exist in our database
     for field_name, field_val in request.POST.iteritems():
-
         try:
             field = Field.objects.get(name=field_name)
 
@@ -60,12 +60,20 @@ def verify(request):
             profile=profile,
             value=field_val
         )
-
-        field_value.save()
-        email = EmailMessage('Hello', 'World', to=[settings.JON_EMAIL])
-        email.send()
-
-    return HttpResponse('Added')
+    name = request.POST['first_name']+' '+request.POST['last_name']
+    field_value.save()
+    html_content = get_template('email.html')
+    text_content = get_template('email.txt')
+    context = Context({'name': name})
+    html_content = html_content.render(context)
+    text_content = text_content.render(context)
+    subject, from_email, to = 'IDAPI:'+name, 'idapi.verify@gmail.com', 'theadriangreen@gmail.com'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # email = EmailMessage('Hello', 'World', to=[settings.JON_EMAIL])
+    # email.send()
+    return render_to_response('Confirmation.html', context_instance=RequestContext(request))
 
 def companyprofile(request, id):
     t=get_template("companyprofile.html")
