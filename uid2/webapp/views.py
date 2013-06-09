@@ -97,7 +97,7 @@ def companyprofile(request, id):
     for profile in Profile.objects.all():
         first_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id)))
         last_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id)))
-        sex_offender=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id)))
+        sex_offender=getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id))
         profiles.append((first_name, last_name, "Failed" if sex_offender else "Passed", '/api/person/id='+str(profile.id)))
     c=Context({"profiles":profiles})
     html=t.render(c)
