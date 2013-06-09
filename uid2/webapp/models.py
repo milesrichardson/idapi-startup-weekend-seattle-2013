@@ -5,6 +5,7 @@ from django.db import models
 
 class Profile(models.Model):
 	expiry_date = models.DateTimeField()
+	#creation_date = models.DateTimeField()
 
 	def __str__(self):
 		return str(self.pk)
