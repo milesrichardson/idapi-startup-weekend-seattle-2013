@@ -2,11 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
-	expiry_date = models.DateTimeField()
+	# TODO: Make auto_add_now use an expiry in the future.
+	expiry_date = models.DateTimeField(auto_now=True)
 	user = models.ForeignKey(User)
 
 	def __str__(self):
 		return str(self.pk)
+def sex_offender(instance):
+        val = list(FieldValue.objects.filter(field=Field.objects.filter(name='sex_offender')).filter(profile=instance.pk))
+        if len(val) > 0:
+                val = val[0].value
+        else:
+                val = None
+        return val
 def lookup_firstname(instance):
         val = list(FieldValue.objects.filter(field=Field.objects.filter(name='first_name')).filter(profile=instance.pk))
         if len(val) > 0:
@@ -52,6 +60,9 @@ class FieldValue(models.Model):
 	field = models.ForeignKey('Field')
 	profile = models.ForeignKey('Profile')
 	value = models.TextField()
+
+        def __str__(self):
+                return self.value
 
 
 # first_name = "Miles"

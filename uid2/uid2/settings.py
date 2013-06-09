@@ -20,6 +20,14 @@ DATABASES = {
     }
 }
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'idapi.verify@gmail.com'
+EMAIL_HOST_PASSWORD = 'idapi100'
+EMAIL_PORT = 587
+
+JON_EMAIL = 'jonzija@gmail.com'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
