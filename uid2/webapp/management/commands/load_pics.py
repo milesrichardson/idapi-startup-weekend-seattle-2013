@@ -10,12 +10,15 @@ from django.utils.timezone import utc
 from dateutil.relativedelta import relativedelta
 import csv
 from subprocess import call
+import criminal_scrape
 
 class Command(NoArgsCommand):
 	#@transaction.commit_manually
     help = 'load in data from csv'
     def handle_noargs(self, **options):
         # load in each of the rows of csv data and populate the database.
+		print "Loading data (in the future. for now, just quit"
+		return
 		fp = open('msor.csv', 'rb')
 		reader = csv.reader(fp)
 
@@ -25,17 +28,12 @@ class Command(NoArgsCommand):
 		sex_offense = Field.objects.get(name='sex_offense')
 		sex_offense_count = Field.objects.get(name='sex_offense_count')
 		sex_offender_complaint = Field.objects.get(name='sex_offender_compliant')
-		sex_offender = Field.objects.get(name='sex_offender')
 
 		i = 0
 		DBG = True
 		DBG = False
-		SPARSE_IMPORT = True	# import every 200th element
 
 		for line in reader:
-			i += 1
-			if i % 200 and SPARSE_IMPORT != 0:
-				continue
 
 			print "Processing data", line
 			profile = Profile()
@@ -86,13 +84,6 @@ class Command(NoArgsCommand):
 			fv = FieldValue()
 			fv.field = sex_offender_complaint
 			fv.value = line[8].strip(', ')
-			fv.profile = profile
-			fv.save()
-			if DBG: print "Saving " + str(fv.field), " = '" + fv.value + "'"
-
-			fv = FieldValue()
-			fv.field = sex_offender
-			fv.value = True
 			fv.profile = profile
 			fv.save()
 			if DBG: print "Saving " + str(fv.field), " = '" + fv.value + "'"
