@@ -4,6 +4,7 @@ from webapp.models import Profile, FieldValue, Field
 from django.conf import settings
 from subprocess import call
 from django.core.management.base import CommandError, NoArgsCommand
+from django.contrib.auth.models import User
 from django.db import models
 from django.db import transaction
 from django.utils.timezone import utc
@@ -18,22 +19,30 @@ class Command(NoArgsCommand):
     help = 'load in data from csv'
     def handle_noargs(self, **options):
         # load in each of the rows of csv data and populate the database.
+
 		query = 'Donaldson'
 		results = criminal_scrape.get_results(firstname='', lastname=query, offline=False)
-		#print results
-		print type(results)
-		
 		results = json.loads(results)
-
 		#keys = ['status', 'next_page', 'current_page', 'records', 'total_records', 'msg'	# for reference
-
 		results = results['records']
 
-		return
+		"""
+		fields = ['last_name', 'first_name', 'sex_offense', 'mugshot_url']
+		for fieldname in fields:
+			field = Field()
+			field.name = fieldname
+			field.save()
+
+		field = Field()
+		field.name = 'mugshot_url'
+		field.save()
+		"""
+
+		user = User.objects.get(id=1)
 
 		last_name = Field.objects.get(name='last_name')
 		first_name = Field.objects.get(name='first_name')
-		sex_offense = Field.objects.get(name='sex_offense')
+		sex_offense = Field.objects.get(name='sex_offense')	 #TODO - not actualy sex offense; change to general crimes
 		mugshot_url = Field.objects.get(name='mugshot_url')
 
 		i = 0
