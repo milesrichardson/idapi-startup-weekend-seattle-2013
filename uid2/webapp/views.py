@@ -10,6 +10,8 @@ from django.contrib.auth import authenticate, login
 from webapp.models import Profile, FieldValue, Field
 import json
 import random
+from django.core.mail import EmailMessage
+
 
 def home(request, template='home.html'):
     if request.method == 'POST':
@@ -60,6 +62,8 @@ def verify(request):
         )
 
         field_value.save()
+        email = EmailMessage('Hello', 'World', to=[settings.JON_EMAIL])
+        email.send()
 
     return HttpResponse('Added')
 
