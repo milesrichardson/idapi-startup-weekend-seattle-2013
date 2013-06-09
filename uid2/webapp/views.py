@@ -38,9 +38,9 @@ def companyprofile(request, id):
     t=get_template("companyprofile.html")
     profiles=[]
     for profile in Profile.objects.all():
-        first_name=getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id))
-        last_name=getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id))
-        sex_offender=getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id))
+        first_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id)))
+        last_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id)))
+        sex_offender=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id)))
         profiles.append((first_name, last_name, "Failed" if sex_offender else "Passed", '/api/person/id='+str(profile.id)))
     c=Context({"profiles":profiles})
     html=t.render(c)
@@ -50,13 +50,20 @@ def profile(request, id):
      t=get_template("profile.html")
      profile=Profile.objects.get(pk=id)
      sex_offender=getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id))
-     first_name=getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id))
-     last_name=getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id))
-     address=getFirstValue(FieldValue.objects.filter(field__name='address', profile=profile.id))
-     crime= getFirstValue(FieldValue.objects.filter(field__name='sex_offense', profile=profile.id))
+     first_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id)))
+     last_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id)))
+     address=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='address', profile=profile.id)))
+     crime= cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='sex_offense', profile=profile.id)))
      c=Context({"sex_offender":sex_offender, "first_name":first_name, "last_name":last_name, "address":address, "crime":crime})
      html=t.render(c)
      return HttpResponse(html)
+
+
+def cleanCaps(dirtystring):
+    result=""
+    for word in dirtystring.split(" "):
+        result+=word.capitalize()+" " 
+    return result 
 
 def getFirstValue(fieldvalueobjs):
     if len(fieldvalueobjs)==0: 

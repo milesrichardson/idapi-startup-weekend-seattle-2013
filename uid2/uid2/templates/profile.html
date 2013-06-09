@@ -1,23 +1,23 @@
 {% extends "base2.html" %}
 {% block content %}
-
+			<div class="container">
 			{% if sex_offender %}
 			<h1 style="text-align:center">Status: Failed</h1>
 			<img src="/static/images/reddot.png" style="height:80px; width:80px;  display: block; margin-left: auto; margin-right: auto;"> </img> 
-			<br>
-			<div class="span4">
-				    <div class="thumbnail" style="margin-left:20%">
-				      <img src="http://www.co.umatilla.or.us/corrections/img/Anderson-K.jpg" style="width:250px; height:250px; border:1px solid silver">
-				    </div>
-			</div>
-			<div class="hero-unit pull-right">
-				<h3> Name: {{first_name}}  {{last_name}}</h3>
-				<h3> Address: {{address}}</h3> 
-				<h3> Crime: {{crime}} </h3>
-			</div>
 			{% else %}
 			<h1 style="text-align:center">Status: Cleared</h1>
 			<img src="/static/images/greendot.png" style="height:80px; width:80px; display: block; margin-left: auto; margin-right: auto;"> </img> 
 			{% endif %}
-			
+			<br>
+			<div class="span4" style="margin-left:15%">
+				    <div class="thumbnail" style="margin-left:25%; margin-top:5%">
+				      <img src="http://www.co.umatilla.or.us/corrections/img/Anderson-K.jpg" style="width:200px; height:200px; border:1px solid silver">
+				    </div>
+			</div>
+			<div class="hero-unit">
+				<h3> Name: {{first_name}}  {{last_name}}</h3>
+				<h3> Address: {{address}}</h3> 
+				<h3> Crime: {{crime}} </h3>
+			</div>
+			</div> 
 {% endblock %}
