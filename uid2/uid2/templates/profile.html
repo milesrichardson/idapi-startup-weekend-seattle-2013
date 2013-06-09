@@ -1,7 +1,7 @@
 {% extends "base2.html" %}
 {% block content %}
 
-			{% if sexoffender %}
+			{% if sex_offender %}
 			<h1 style="text-align:center">Status: Failed</h1>
 			<img src="/static/images/reddot.png" style="height:80px; width:80px;  display: block; margin-left: auto; margin-right: auto;"> </img> 
 			<br>
@@ -11,9 +11,9 @@
 				    </div>
 			</div>
 			<div class="hero-unit pull-right">
-				<h3> Name: Aaron Jeffery</h3>
-				<h3> Address: 83 OSCAR TALLY RD, ANDERSON, MO 64831</h3> 
-				<h3> Crime: SEXUAL ABUSE IN THE SECOND </h3>
+				<h3> Name: {{first_name}}  {{last_name}}</h3>
+				<h3> Address: {{address}}</h3> 
+				<h3> Crime: {{crime}} </h3>
 			</div>
 			{% else %}
 			<h1 style="text-align:center">Status: Cleared</h1>

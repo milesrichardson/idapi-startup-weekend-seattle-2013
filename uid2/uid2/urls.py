@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 from django.views.generic.simple import direct_to_template
+from webapp.views import companyprofile, profile
 admin.autodiscover()
 import api 
 
@@ -20,8 +21,8 @@ urlpatterns = patterns('',
                        url(r'^about$', home, {'template': 'about.html'},name='about'),
                        url(r'^contact$', TemplateView.as_view(template_name="contact.html"),name='contact'),
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                       url(r'^api/person/id=(\d{0,9})$', TemplateView.as_view(template_name="profile.html"),name='profile'),
-                       url(r'^companyprofile=(\d{0,9})$', TemplateView.as_view(template_name="companyprofile.html"),name='companyprofile'),
+                       url(r'^api/person/id=(\d{0,9})$','webapp.views.profile'),
+                       url(r'^companyprofile=(\d{0,9})$','webapp.views.companyprofile'),
                        url(r'^redfin1',redfin,{'template': "Identity.html"}),
                        url(r'^redfin2',direct_to_template,{'template': "Confirmation.html"}),
                        url(r'^admin/', include(admin.site.urls)),   
