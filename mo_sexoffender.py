@@ -22,17 +22,19 @@ def get_info(firstname=None, lastname=None, selector='all'):
 		firstname = ""
 		print "Searching for last name", lastname
 	if lastname is None:
+		lastname = ""
 		print "Searching for first name ", firstname
 
-	firstname = ", " + firstname
-	lastname = lastname + ", "
+	if firstname: firstname = ", " + firstname
+	if lastname: lastname = lastname + ", "
+	print firstname, lastname
 
 	for row in reader:
 		lastfirst = str(row[0])
 
-		if firstname is ", " and lastname in lastfirst:
+		if firstname is "" and lastname in lastfirst:
 			print lastname.strip(', '), "found\n" + print_row(row, selector)
-		elif lastname is ", " and firstname in lastfirst:
+		elif lastname is "" and firstname in lastfirst:
 			print firstname.strip(', '), "found\n" + print_row(row, selector)
 		elif lastname in lastfirst and firstname in lastfirst:
 			print lastname.strip(', '), firstname.strip(', '), "found\n" + print_row(row, selector)
@@ -49,7 +51,7 @@ def print_row(row, selector='all'):
 		end = 6
 	elif selector == 'offense':
 		start = 6
-		end = 7
+		end = 8
 
 	for i in range(start, end):
 		data = row[i].strip()
