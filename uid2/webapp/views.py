@@ -41,9 +41,9 @@ def redfin(request,template):
 
 def verify(request):
     try:
-        profile = list(FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=request.POST['last_name']))[0].profile
-        first_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name')))
-        last_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name')))
+        profile = list(FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=(request.POST['last_name'].upper())))[0].profile
+        first_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name')))
+        last_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name')))
         name = first_name + last_name
         print 'FOUND:'+name
     except:
@@ -69,11 +69,9 @@ def verify(request):
                 value=field_val
                 )
             field_value.save()
-            
-    
-    first_name = FieldValue.objects.filter(field=Field.objects.get(name='last_name')).get(profile=profile).value
-    last_name = FieldValue.objects.filter(field=Field.objects.get(name='first_name')).get(profile=profile).value
-    name = first_name + ' ' +last_name
+    first_name = FieldValue.objects.filter(field=Field.objects.get(name='first_name')).get(profile=profile).value
+    last_name = FieldValue.objects.filter(field=Field.objects.get(name='last_name')).get(profile=profile).value
+    name = first_name + ', ' +last_name
     html_content = get_template('email.html')
     text_content = get_template('email.txt')
     try:
@@ -83,7 +81,7 @@ def verify(request):
     context = Context({'name': name,'sex_offender':sex_offender})
     html_content = html_content.render(context)
     text_content = text_content.render(context)
-    subject, from_email, to = 'IDAPI:'+name, 'idapi.verify@gmail.com', 'theadriangreen@gmail.com'
+    subject, from_email, to = 'IDAPI: '+name+ ' '+"Failed" if sex_offender else "Passed", 'idapi.verify@gmail.com', 'theadriangreen@gmail.com'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
@@ -97,7 +95,10 @@ def companyprofile(request, id):
     for profile in Profile.objects.all():
         first_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id)))
         last_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id)))
-        sex_offender=getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id))
+        try:
+            sex_offender = FieldValue.objects.filter(field=Field.objects.get(name='sex_offender')).get(profile=profile).value in ['true','True']
+        except:
+            sex_offender = False
         profiles.append((first_name, last_name, "Failed" if sex_offender else "Passed", '/api/person/id='+str(profile.id)))
     c=Context({"profiles":profiles})
     html=t.render(c)
