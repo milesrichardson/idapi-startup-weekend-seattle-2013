@@ -1,8 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Profile(models.Model):
-        # TODO: Make auto_add_now use an expiry in the future.
+	# TODO: Make auto_add_now use an expiry in the future.
 	expiry_date = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User)
 
 	def __str__(self):
 		return str(self.pk)
