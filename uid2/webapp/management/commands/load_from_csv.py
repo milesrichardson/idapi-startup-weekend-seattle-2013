@@ -8,6 +8,7 @@ from django.db import models
 from django.db import transaction
 from django.utils.timezone import utc
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth.models import User
 import csv
 from subprocess import call
 
@@ -16,8 +17,16 @@ class Command(NoArgsCommand):
     help = 'load in data from csv'
     def handle_noargs(self, **options):
         # load in each of the rows of csv data and populate the database.
+		fields = ['last_name', 'first_name', 'address', 'sex_offense', 'sex_offense_count', 'sex_offender_compliant', 'sex_offender', 'mugshot_url']
+		for fieldname in fields:
+			field = Field()
+			field.name = fieldname
+			field.save()
+
 		fp = open('msor.csv', 'rb')
 		reader = csv.reader(fp)
+
+		user = User.objects.get(id=1)
 
 		last_name = Field.objects.get(name='last_name')
 		first_name = Field.objects.get(name='first_name')
@@ -41,6 +50,7 @@ class Command(NoArgsCommand):
 			profile = Profile()
 			profile.expiry_date = datetime.utcnow().replace(tzinfo=utc) + relativedelta(years=+1)	
 			#profile.creation_date = datetime.utcnow()
+			profile.user = user
 			profile.save()
 			
 			# dataformat = ['Name','Address','City', 'St', 'Zip', 'County', 'Offense', 'Count', 'Compliant'] 	# for reference

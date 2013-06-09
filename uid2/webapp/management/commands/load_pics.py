@@ -9,6 +9,7 @@ from django.db import transaction
 from django.utils.timezone import utc
 from dateutil.relativedelta import relativedelta
 import csv
+import json
 from subprocess import call
 import criminal_scrape
 
@@ -17,24 +18,46 @@ class Command(NoArgsCommand):
     help = 'load in data from csv'
     def handle_noargs(self, **options):
         # load in each of the rows of csv data and populate the database.
-		print "Loading data (in the future. for now, just quit"
+		query = 'Donaldson'
+		results = criminal_scrape.get_results(firstname='', lastname=query, offline=False)
+		#print results
+		print type(results)
+		
+		results = json.loads(results)
+
+		#keys = ['status', 'next_page', 'current_page', 'records', 'total_records', 'msg'	# for reference
+
+		results = results['records']
+
 		return
-		fp = open('msor.csv', 'rb')
-		reader = csv.reader(fp)
 
 		last_name = Field.objects.get(name='last_name')
 		first_name = Field.objects.get(name='first_name')
-		address = Field.objects.get(name='address')
 		sex_offense = Field.objects.get(name='sex_offense')
-		sex_offense_count = Field.objects.get(name='sex_offense_count')
-		sex_offender_complaint = Field.objects.get(name='sex_offender_compliant')
+		mugshot_url = Field.objects.get(name='mugshot_url')
 
 		i = 0
 		DBG = True
 		DBG = False
 
-		for line in reader:
+		for result in results:
+			profile = Profile()
+			profile.expiry_date = datetime.utcnow().replace(tzinfo=utc) + relativedelta(years=+1)	
+			#profile.creation_date = datetime.utcnow()
+			profile.save()
 
+			fullname = str(result['name'])
+			first_name = fullname.split()[0]
+			last_name = fullname.split()[-1]
+			sex_offenses = result['charges']
+			sex_offense = str(result['charges'][0])
+			mugshot = str(result['mugshot'])
+			print '\n'.join([first_name, last_name, sex_offense, mugshot])
+			print ""
+			#break
+
+
+		for line in reader:
 			print "Processing data", line
 			profile = Profile()
 			profile.expiry_date = datetime.utcnow().replace(tzinfo=utc) + relativedelta(years=+1)	

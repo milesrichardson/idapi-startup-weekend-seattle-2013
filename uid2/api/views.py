@@ -50,6 +50,5 @@ def get_result(request):
 
 
 
-FieldValue.objects.filter(field__name='first_name', profile=profile)
 
 
