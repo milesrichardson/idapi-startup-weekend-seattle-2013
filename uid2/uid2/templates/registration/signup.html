@@ -3,16 +3,19 @@
   {{ form.non_field_errors }}
   {% for field in form %}
     {% if field.name != "username" %}
-      <div class="field-wrapper">
-        <div class="label-wrapper">
-          {{ field.label_tag }}
-          {% if field.field.required %}<span class="required">*</span>{% endif %}
-        </div>
-        <div class="value-wrapper">
           {{ field }}
           {{ field.errors }}
-        </div>
-      </div>
+  
+      <!-- <div class="field-wrapper"> -->
+      <!--   <div class="label-wrapper"> -->
+      <!--     {{ field.label_tag }} -->
+      <!--     {% if field.field.required %}<span class="required">*</span>{% endif %} -->
+      <!--   </div> -->
+      <!--   <div class="value-wrapper"> -->
+      <!--     {{ field }} -->
+      <!--     {{ field.errors }} -->
+      <!--   </div> -->
+      <!-- </div> -->
     {% endif %}
   {% endfor %}
   <div class="submit-wrapper">

@@ -1,20 +1,8 @@
-<form method="post" id="signup_form" autocomplete="off">
-  <h3>Create Your Account</h3>
-  <p>Get started with tailored audio therapy right now!</p>
   {% csrf_token %}
   {{ form.non_field_errors }}
   {% for field in form %}
-  {% if field.name != "username" %}
-  <p class="field-wrapper">
-    <label for="your_name">{{ field.label_tag }}</label>
-    {{ field }}
-    {{ field.errors }}
-  </p>
-  {% endif %}
+    {% if field.name != "username" %}
+          {{ field }}
+          {{ field.errors }}<br />
+    {% endif %}
   {% endfor %}
-  <p>
-  </p> 
-  <p>Already have an account? <a href="/accounts/login" onClick="_gaq.push(['_trackEvent', 'registration', 'signin', 'landing create-form']);">Sign in!</a></p>
-  <input value="" name="tz" type="hidden" id="tz">
-  <input type="submit" value="Create my account!" class="primary button" onClick="_gaq.push(['_trackEvent', 'registration', 'signup', 'landing button']);">
-</form>
