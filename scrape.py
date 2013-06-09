@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#!../bin/python
+
+>>>>>>> 8aba2d251146fe0b7454e521643ca21488029bf4
 import urllib, urllib2
 import os
 import argparse
@@ -43,8 +48,8 @@ def get_familywatchdog_results(firstname="John", lastname="Smith", statecode="CA
 def main():
 	parser = argparse.ArgumentParser(description='Get FamilyWatchDog Report')
 	parser.add_argument('--firstname', '-first', nargs='?', const=1, help="First Name of Person" )
-	parser.add_argument('--lastname', nargs='?', const=1, help="Last Name of Person" )
-	parser.add_argument('--statecode', nargs='?', const=1, help="Two Character State Code" )
+	parser.add_argument('--lastname', '-last', nargs='?', const=1, help="Last Name of Person" )
+	parser.add_argument('--statecode', '-state', nargs='?', const=1, help="Two Character State Code" )
 	args = parser.parse_args()
 
 	get_familywatchdog_results(args.firstname, args.lastname, args.statecode)
