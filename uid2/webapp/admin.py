@@ -2,7 +2,9 @@ from django.contrib import admin
 from webapp.models import *
 
 class ProfileAdmin(admin.ModelAdmin):
-	pass
+        list_display = ('expiry_date', lookup_firstname, lookup_dob, lookup_ssn, lookup_source_url)
+        date_hierarchy = 'expiry_date'
+        # search_fields = (lookup_firstname,) # doesn't work with callables
 
 class FieldAdmin(admin.ModelAdmin):
 	pass
