@@ -1,0 +1,25 @@
+{% extends "base2.html" %}
+{% block content %}
+		<section id="bottom">
+
+			{% if person.sexoffender %}
+			<h1 style="text-align:center">Status: Failed</h1>
+			<img src="/static/images/reddot.png" style="height:80px; width:80px;  display: block; margin-left: auto; margin-right: auto;"> </img> 
+			<br>
+			<div class="span4">
+				    <div class="thumbnail" style="margin-left:20%">
+				      <img src="http://www.co.umatilla.or.us/corrections/img/Anderson-K.jpg" style="width:250px; height:250px; border:1px solid silver">
+				    </div>
+			</div>
+			<div class="hero-unit pull-right">
+				<h3> Name: {{person.name}}</h3>
+				<h3> Address: {{person.address}}</h3> 
+				<h3> Crime: {{person.crime}}</h3>
+			</div>
+			{% else %}
+			<h1 style="text-align:center">Status: Passed</h1>
+			<img src="/static/images/greendot.png" style="height:80px; width:80px; display: block; margin-left: auto; margin-right: auto;"> </img> 
+			{% endif %}
+			
+		</section>
+{% endblock %}
