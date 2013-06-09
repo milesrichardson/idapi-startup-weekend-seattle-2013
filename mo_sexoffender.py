@@ -4,7 +4,7 @@ import argparse
 import csv
 import string
 
-datafile = '../msor.csv'
+datafile = './msor.csv'
 dataformat = ['Name','Address','City', 'St', 'Zip', 'County', 'Offense', 'Count', 'Compliant']
 
 def get_info(firstname=None, lastname=None, selector='all'):
@@ -23,7 +23,7 @@ def get_info(firstname=None, lastname=None, selector='all'):
 		print "Searching for last name", lastname
 	if lastname is None:
 		lastname = ""
-		print "Searching for first name ", firstname
+		print "Searching for first name", firstname
 
 	if firstname: firstname = ", " + firstname
 	if lastname: lastname = lastname + ", "

@@ -19,7 +19,7 @@ mo\_sexoffender.py
 ===================
 Look up sex offenders in Missouri by first and/or last name and narrow down results by 'all', 'address', 'offense'
 
-Download [msor.csv](http://dl.dropboxusercontent.com/u/27627620/id/msor.csv) and put it in the folder above your git folder
+Download [msor.csv](http://dl.dropboxusercontent.com/u/27627620/id/msor.csv) and put it in your git folder
 
 	usage: mo_sexoffender.py [-h] [--firstname [FIRSTNAME]]
 							 [--lastname [LASTNAME]] [--selector [SELECTOR]]
