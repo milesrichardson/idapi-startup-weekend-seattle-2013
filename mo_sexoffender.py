@@ -27,17 +27,24 @@ def get_info(firstname=None, lastname=None, selector='all'):
 
 	if firstname: firstname = ", " + firstname
 	if lastname: lastname = lastname + ", "
-	print firstname, lastname
+
+	found = False
 
 	for row in reader:
 		lastfirst = str(row[0])
 
 		if firstname is "" and lastname in lastfirst:
-			print lastname.strip(', '), "found\n" + print_row(row, selector)
+			print lastfirst, "found\n" + print_row(row, selector)
+			found = True
 		elif lastname is "" and firstname in lastfirst:
-			print firstname.strip(', '), "found\n" + print_row(row, selector)
+			print lastfirst, "found\n" + print_row(row, selector)
+			found = True
 		elif lastname in lastfirst and firstname in lastfirst:
 			print lastname.strip(', '), firstname.strip(', '), "found\n" + print_row(row, selector)
+			found = True
+
+	if not found:
+		print "No matches found"
 
 	fp.close()
 
