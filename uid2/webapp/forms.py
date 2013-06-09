@@ -6,7 +6,10 @@ import os.path
 from django.contrib.auth.forms import UserCreationForm
 
 class SignupForm(UserCreationForm): 
-    email = forms.EmailField(widget=forms.TextInput())
+    # add placeholder attributes
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email'}))
+    password1 = forms.CharField(label=("Password"),widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+    password2 = forms.CharField(label=("Password confirmation"),widget=forms.PasswordInput(attrs={'placeholder':'Password'}),help_text = ("Enter the same password as above, for verification."))
     class Meta:
         model = User
         fields = ('username', 'email',) 
@@ -34,5 +37,3 @@ class SignupForm(UserCreationForm):
 
 class PostForm(forms.Form): 
     rawdata = forms.CharField(label='Raw data')
-
-
