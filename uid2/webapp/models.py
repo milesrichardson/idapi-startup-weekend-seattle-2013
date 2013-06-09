@@ -6,6 +6,13 @@ class Profile(models.Model):
 
 	def __str__(self):
 		return str(self.pk)
+def sex_offender(instance):
+        val = list(FieldValue.objects.filter(field=Field.objects.filter(name='sex_offender')).filter(profile=instance.pk))
+        if len(val) > 0:
+                val = val[0].value
+        else:
+                val = None
+        return val
 def lookup_firstname(instance):
         val = list(FieldValue.objects.filter(field=Field.objects.filter(name='first_name')).filter(profile=instance.pk))
         if len(val) > 0:
