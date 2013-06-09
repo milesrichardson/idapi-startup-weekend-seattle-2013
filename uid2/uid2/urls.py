@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 from django.views.generic.simple import direct_to_template
 admin.autodiscover()
+import api 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -28,6 +29,7 @@ urlpatterns = patterns('',
                        # url(r'^accounts/profile/', 'viprmain.views.analytics'),
                        (r'^accounts?/', include('registration.urls')),
                        #url(r'^login/$',auth_views.login,{'template_name': 'login.html'},name='auth_login'),
+                       url(r'^api/', include(api.urls))
 )
 print 'staticroot:'+settings.STATIC_ROOT
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,'show_indexes': True }))
