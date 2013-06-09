@@ -30,7 +30,8 @@ urlpatterns = patterns('',
                        # url(r'^accounts/profile/', 'viprmain.views.analytics'),
                        (r'^accounts?/', include('registration.urls')),
                        #url(r'^login/$',auth_views.login,{'template_name': 'login.html'},name='auth_login'),
-                       url(r'^api/', include(api.urls))
+                       url(r'^api/', include(api.urls)),
+                       url(r'^verify', verify), # Redirects
 )
 print 'staticroot:'+settings.STATIC_ROOT
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,'show_indexes': True }))

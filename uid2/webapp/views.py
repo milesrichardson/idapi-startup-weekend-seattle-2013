@@ -34,6 +34,35 @@ def redfin(request,template):
     else:
         return render_to_response('Identity.html', context_instance=RequestContext(request))
 
+def verify(request):
+
+    # For now, we just create a new profile on every new query.
+    # TODO: Create scoring system for same profile (% of matching fields?)
+    profile = Profile.objects.create()
+    profile.save()
+
+    # Add all the fields that exist in our database
+    for field_name, field_val in request.POST.iteritems():
+
+        try:
+            field = Field.objects.get(name=field_name)
+
+        except Field.MultipleObjectsReturned:
+            continue
+
+        except Field.DoesNotExist:
+            continue
+
+        field_value = FieldValue.objects.create(
+            field=field,
+            profile=profile,
+            value=field_val
+        )
+
+        field_value.save()
+
+    return HttpResponse('Added')
+
 def companyprofile(request, id):
     t=get_template("companyprofile.html")
     profiles=[]

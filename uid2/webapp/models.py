@@ -1,7 +1,8 @@
 from django.db import models
 
 class Profile(models.Model):
-	expiry_date = models.DateTimeField()
+        # TODO: Make auto_add_now use an expiry in the future.
+	expiry_date = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return str(self.pk)
@@ -50,6 +51,9 @@ class FieldValue(models.Model):
 	field = models.ForeignKey('Field')
 	profile = models.ForeignKey('Profile')
 	value = models.TextField()
+
+        def __str__(self):
+                return self.value
 
 
 # first_name = "Miles"

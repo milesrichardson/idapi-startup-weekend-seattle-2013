@@ -47,9 +47,3 @@ def list_query_results_by_person(request):
 def get_result(request):
 	return HttpResponse('')
 
-
-
-
-FieldValue.objects.filter(field__name='first_name', profile=profile)
-
-
