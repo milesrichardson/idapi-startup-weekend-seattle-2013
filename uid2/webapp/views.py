@@ -23,6 +23,12 @@ def home(request, template='home.html'):
         form = SignupForm()
     return render_to_response(template, {'form':form},context_instance=RequestContext(request))
 
+def redfin(request,template):
+    if request.method == 'POST':
+        return render_to_response('Confirmation.html', context_instance=RequestContext(request))
+    else:
+        return render_to_response('Identity.html', context_instance=RequestContext(request))
+
     # if request.method == 'POST':
     #     data = request.POST.copy() # so we can manipulate data
     #     # lower case email

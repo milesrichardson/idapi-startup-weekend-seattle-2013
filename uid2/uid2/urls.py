@@ -5,7 +5,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
+from django.views.generic.simple import direct_to_template
 admin.autodiscover()
+import api 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -20,11 +22,14 @@ urlpatterns = patterns('',
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
                        url(r'^api/person/id=(\d{0,9})$', TemplateView.as_view(template_name="profile.html"),name='profile'),
                        url(r'^companyprofile=(\d{0,9})$', TemplateView.as_view(template_name="companyprofile.html"),name='companyprofile'),
+                       url(r'^redfin1',redfin,{'template': "Identity.html"}),
+                       url(r'^redfin2',direct_to_template,{'template': "Confirmation.html"}),
                        url(r'^admin/', include(admin.site.urls)),   
                        # url(r'^accounts/profile/$', TemplateView.as_view(template_name="analytics.html"), name='analytics'),
                        # url(r'^accounts/profile/', 'viprmain.views.analytics'),
                        (r'^accounts?/', include('registration.urls')),
                        #url(r'^login/$',auth_views.login,{'template_name': 'login.html'},name='auth_login'),
+                       url(r'^api/', include(api.urls))
 )
 print 'staticroot:'+settings.STATIC_ROOT
 urlpatterns += patterns('',(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,'show_indexes': True }))
