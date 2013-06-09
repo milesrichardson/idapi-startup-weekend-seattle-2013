@@ -41,21 +41,26 @@ def redfin(request,template):
 
 def verify(request):
     try:
-        profile = FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=request.POST['last_name']).get(field=Field.objects.get(name='last_name'),value=request.POST['first_name']).profile
-        first_name = FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name'))
-        last_name = FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name'))
+        profile = list(FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=request.POST['last_name']))[0].profile
+        first_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name')))
+        last_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name')))
         name = first_name + last_name
         print 'FOUND:'+name
-    except ObjectDoesNotExist:
+    except:
         print 'NOT FOUND:'+request.POST['first_name']+' '+request.POST['last_name']        
-        profile = Profile.objects.create()
+        profile = Profile()
+        profile.user_id =1
         profile.save()
+        fv = FieldValue()
+        fv.field = Field.objects.get(name='sex_offender')
+        fv.profile = profile
+        fv.value = False
         # Add all the fields that exist in our database
         for field_name, field_val in request.POST.iteritems():
             try:
                 field = Field.objects.get(name=field_name)
             except Field.MultipleObjectsReturned:
-                continue
+                field = Field.objects.filter(name=field_name)[0]
             except Field.DoesNotExist:
                 continue
             field_value = FieldValue.objects.create(
@@ -64,6 +69,7 @@ def verify(request):
                 value=field_val
                 )
             field_value.save()
+            
     
     first_name = FieldValue.objects.filter(field=Field.objects.get(name='last_name')).get(profile=profile).value
     last_name = FieldValue.objects.filter(field=Field.objects.get(name='first_name')).get(profile=profile).value
@@ -100,7 +106,10 @@ def companyprofile(request, id):
 def profile(request, id):
      t=get_template("profile.html")
      profile=Profile.objects.get(pk=id)
-     sex_offender=getFirstValue(FieldValue.objects.filter(field__name='sex_offender', profile=profile.id))
+     try:
+         sex_offender = FieldValue.objects.filter(field=Field.objects.get(name='sex_offender')).get(profile=profile).value in ['true','True']
+     except:
+         sex_offender = False
      first_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='first_name', profile=profile.id)))
      last_name=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='last_name', profile=profile.id)))
      address=cleanCaps(getFirstValue(FieldValue.objects.filter(field__name='address', profile=profile.id)))
