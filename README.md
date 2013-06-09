@@ -36,3 +36,24 @@ Download [msor.csv](http://dl.dropboxusercontent.com/u/27627620/id/msor.csv) and
 							Type of data: all, address, or offense
 
 
+criminal\_scrape.py
+====================
+Look up national criminal records. Specify data source yourself or check all sources
+
+
+	usage: criminal_scrape.py [-h] [--firstname [FIRSTNAME]]
+							  [--lastname [LASTNAME]] [--source [SOURCE]]
+
+	Get Criminal Records
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  --firstname [FIRSTNAME], -first [FIRSTNAME]
+							First Name of Person
+	  --lastname [LASTNAME], -last [LASTNAME]
+							Last Name of Person
+	  --source [SOURCE], -source [SOURCE]
+							Search all 167 sources (max of 1 request per second)
+	  --viewsources, -viewsources
+							View data sources for criminal checks
+

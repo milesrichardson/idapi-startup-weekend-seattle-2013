@@ -18,32 +18,34 @@ else:
 	HIGHLIGHT_COLOR = ''
 	HIGHLIGHT_END = ''
 
-def get_jailbase_sources():
+def get_jailbase_sources(outputall=False):
 	fp = open(source_filename, 'r')
 	sources = fp.read().split(' \n')
 	fp.close()
 	
+	if outputall:
+		print sources
+
 	return sources
 
-def get_results(firstname="", lastname="", source="nj-ecdc"):
+def get_results(firstname="", lastname="", source=""):
 	"""Requires no more than 1 request per second"""
+	if not firstname and not lastname:
+		return "ERROR"
+
 	jailbase_url = "http://www.jailbase.com/api/1/search/"
 	sources = get_jailbase_sources()
 
 	if source=="all":
 		print "Searching all", len(sources), "sources. Pausing 1 sec"
 		time.sleep(1.1) 	# pause a tiny bit more than 1 sec between requests
-		print "Not supported yet"
-		return
+		return "Not supported yet"
+		
 
 	payload = { 'last_name': lastname, \
 				'first_name': firstname, \
 				'source_id': source }
 	payload = urllib.urlencode(payload)
-
-	if not firstname and not lastname:
-		firstname = "John"
-		lastname = "Smith"
 
 	fullname = ""
 	if lastname:
@@ -67,23 +69,32 @@ def get_results(firstname="", lastname="", source="nj-ecdc"):
 	return '\n' + data
 
 def colorify(txt):
-	return HIGHLIGHT_COLOR + txt + HIGHLIGHT_END
+	return HIGHLIGHT_COLOR + str(txt) + HIGHLIGHT_END
 
 def main():
 	parser = argparse.ArgumentParser(description='Get Criminal Records')
 	parser.add_argument('--firstname', '-first', nargs='?', const=1, help="First Name of Person" )
 	parser.add_argument('--lastname', '-last', nargs='?', const=1, help="Last Name of Person" )
-	parser.add_argument('--searchall', '-searchall', nargs='?', const=1, help="Search all sources (max of 1 request per second)" )
+	parser.add_argument('--source', '-source', nargs="?", help="Search all 167 sources (max of 1 request per second)" )
+	parser.add_argument('--viewsources', '-viewsources', action="store_true", help="View data sources for criminal checks")
 	args = parser.parse_args()
 
+	if args.viewsources:
+		print "The following are valid data sources for criminal checks\n"
+		print ', '.join(get_jailbase_sources())[:-2]  # remove last comma
+		return
+	if not args.source:
+		args.source = 'nj-ecdc' # default source
+	if not args.firstname and not args.lastname:
+		args.firstname = "John"
+		args.lastname = "Smith"
+
 	if args.firstname and args.lastname:
-		print get_results(firstname=args.firstname, lastname=args.lastname)
+		print get_results(firstname=args.firstname, lastname=args.lastname, source=args.source)
 	elif args.firstname:
-		print get_results(firstname=args.firstname)
+		print get_results(firstname=args.firstname, source=args.source)
 	elif args.lastname:
-		print get_results(lastname=args.lastname)
-	else:
-		print get_results(firstname="John", lastname="Smith")
+		print get_results(lastname=args.lastname, source=args.source)
 
 
 if __name__=="__main__":
