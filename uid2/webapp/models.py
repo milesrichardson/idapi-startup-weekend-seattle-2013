@@ -2,6 +2,7 @@ from django.db import models
 
 class Profile(models.Model):
 	expiry_date = models.DateTimeField()
+
 	def __str__(self):
 		return str(self.pk)
 def lookup_firstname(instance):
