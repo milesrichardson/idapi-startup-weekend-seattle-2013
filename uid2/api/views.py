@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
+from webapp.models import *
 from django.http import (
 	HttpResponse,
 	HttpResponseRedirect,
@@ -47,9 +48,5 @@ def list_query_results_by_person(request):
 def get_result(request):
 	return HttpResponse('')
 
-
-
-
-FieldValue.objects.filter(field__name='first_name', profile=profile)
 
 

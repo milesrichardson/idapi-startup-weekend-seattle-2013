@@ -7,7 +7,7 @@ from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError, Http404, HttpResponseBadRequest
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
-from webapp.models import Profile, FieldValue, Field
+from webapp.models import *
 import json
 import random
 
@@ -29,7 +29,7 @@ def home(request, template='home.html'):
     return render_to_response(template, {'form':form},context_instance=RequestContext(request))
 
 def redfin(request,template):
-    if request.method == 'POST':
+    if request.method == 'POST':        
         return render_to_response('Confirmation.html', context_instance=RequestContext(request))
     else:
         return render_to_response('Identity.html', context_instance=RequestContext(request))
