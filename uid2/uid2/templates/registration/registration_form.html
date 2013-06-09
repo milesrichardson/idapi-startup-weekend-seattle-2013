@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block meta_description %}
+<meta name="description" content="Create your account at AudioNotch.com: Tailor-Made Notched Sound Therapy for the treatment of Tinnitus.">
+{% endblock %}
+{% block imports %}
+{% endblock %}
+{% block javascript %}
+<script src="{{STATIC_URL}}js/jstz.min.js"></script> <!-- timezone support -->
+<script>
+  var timezone;
+  $(document).ready(function(){
+  timezone = jstz.determine_timezone();
+  $('#tz').append(timezone.name());  
+  document.getElementById('tz').value=timezone.name();
+});  
+</script>
+<script src="{{STATIC_URL}}js/InFieldLabels/src/jquery.infieldlabel.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+function formfocus() {
+document.getElementById('id_email').focus();
+}
+window.onload = formfocus;
+$(function(){ $("label").inFieldLabels();});
+</script>
+{% endblock %}
+{% block app_nav2 %}{% endblock %}
+{% block pagetitle %}Create Your Account{% endblock %}
+{% block forms %}
+  <div class="form-wrap center form-width">
+      <form action="" method="post" id="signup_form_landing" autocomplete="off">
+	{% include 'signup.html' %}
+      </form>
+    </div>   
+{% endblock %}
+{% block social %}{% endblock %}

@@ -1,0 +1,178 @@
+#top {
+	background-color: #000;
+	overflow: hidden;
+	padding: 0.5em 0 0;
+}
+
+img#site-logo {
+	max-height: 85px;
+	padding-bottom: 0.2em;
+}
+
+#navigation {
+	font-size: 14pt;
+	position: relative;
+	top: 1.8em;
+}
+
+#navigation li > a {
+	color: #ECF0F1;
+	margin: 0 0.5em;
+	text-decoration: none;
+}
+
+#navigation li:hover > a {
+	color: #000;
+}
+
+#introduction, #product-photo {
+	width: 50%;
+}
+
+#front-page-mast {
+	overflow: hidden;
+}
+
+#product-image {
+	text-align: center;
+	width: 100%;
+}
+
+#product-image img {
+	padding: 1em 0 3em;
+}
+
+#bottom {
+	background-color: #ECF0F1;
+	padding-top: 1em;
+}
+
+#information {
+	width: 50%;
+	margin-right: 1em;
+}
+
+#sign-up-form {
+	background-color: #ECF0F1;
+	margin: 0 auto;
+	padding: 0.5em 1em;
+	text-align: center;
+	width: 45%;
+}
+
+#sign-up-form > form legend {
+	color: #000;
+}
+
+#sign-up-form > form input[type="text"], input[type="password"] {
+	width: 55%;
+}
+
+#analytics-container {
+	background-color: #ECF0F1;
+}
+
+#analytic-information {
+	padding-top: 1em;
+}
+
+.analytics {
+	background-color: #FFF;
+	margin: 1em 2.55em 2em;
+}
+
+#account-information {
+	padding: 3em 1em 3.7em 0;
+	width: 20%;
+}
+
+.analytics > div {
+	padding: 0.5em 1.5em 1em;
+}
+
+#visits-information {
+	width: 25%;
+}
+
+#visits-information > div {
+	padding: 2.9em 0 3.1em 1.5em;
+	width: 40%;
+}
+
+#visits-information img {
+	max-width: 35%;
+}
+
+#customers-information {
+	width: 35%;
+}
+
+#customers-information > div {
+	padding: 0.5em 0 1em 1.5em;
+}
+
+#chart-info {
+	position: relative;
+	top: 30px;
+}
+
+/*#misc-information {
+	border: 1px solid #000;
+	width: 75%;
+}
+
+#visits > h2 {
+	font-size: 30pt;
+	padding-bottom: 1em;
+}
+
+#visits-number {
+	font-size: 24pt;
+}*/
+
+#map {
+	width: 85%;
+	margin: 0 auto;
+}
+
+#graph-container {
+	background-color: #FFF;
+	clear: both;
+	margin: 0 auto;
+  	width: 85%;
+}
+
+#graph {
+  margin: 0 auto 2.5em;
+  padding: 1em;
+  overflow: hidden;
+}
+
+#copyright {
+	padding: 2em 0 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
