@@ -1,4 +1,5 @@
 from forms import SignupForm
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
@@ -39,31 +40,41 @@ def redfin(request,template):
         return render_to_response('Identity.html', context_instance=RequestContext(request))
 
 def verify(request):
+    try:
+        profile = FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=request.POST['last_name']).get(field=Field.objects.get(name='last_name'),value=request.POST['first_name']).profile
+        first_name = FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name'))
+        last_name = FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name'))
+        name = first_name + last_name
+        print 'FOUND:'+name
+    except ObjectDoesNotExist:
+        print 'NOT FOUND:'+request.POST['first_name']+' '+request.POST['last_name']        
+        profile = Profile.objects.create()
+        profile.save()
+        # Add all the fields that exist in our database
+        for field_name, field_val in request.POST.iteritems():
+            try:
+                field = Field.objects.get(name=field_name)
+            except Field.MultipleObjectsReturned:
+                continue
+            except Field.DoesNotExist:
+                continue
+            field_value = FieldValue.objects.create(
+                field=field,
+                profile=profile,
+                value=field_val
+                )
+            field_value.save()
     
-    profile = Profile.objects.create()
-    profile.save()
-
-    # Add all the fields that exist in our database
-    for field_name, field_val in request.POST.iteritems():
-        try:
-            field = Field.objects.get(name=field_name)
-
-        except Field.MultipleObjectsReturned:
-            continue
-
-        except Field.DoesNotExist:
-            continue
-
-        field_value = FieldValue.objects.create(
-            field=field,
-            profile=profile,
-            value=field_val
-        )
-    name = request.POST['first_name']+' '+request.POST['last_name']
-    field_value.save()
+    first_name = FieldValue.objects.filter(field=Field.objects.get(name='last_name')).get(profile=profile).value
+    last_name = FieldValue.objects.filter(field=Field.objects.get(name='first_name')).get(profile=profile).value
+    name = first_name + ' ' +last_name
     html_content = get_template('email.html')
     text_content = get_template('email.txt')
-    context = Context({'name': name})
+    try:
+        sex_offender = FieldValue.objects.filter(field=Field.objects.get(name='sex_offender')).get(profile=profile).value in ['true','True']
+    except:
+        sex_offender = False
+    context = Context({'name': name,'sex_offender':sex_offender})
     html_content = html_content.render(context)
     text_content = text_content.render(context)
     subject, from_email, to = 'IDAPI:'+name, 'idapi.verify@gmail.com', 'theadriangreen@gmail.com'
@@ -106,7 +117,7 @@ def cleanCaps(dirtystring):
     return result 
 
 def getFirstValue(fieldvalueobjs):
-    if len(fieldvalueobjs)==0: 
+    if len(fieldvalueobjs)==0:
         return  "N/A"
     return fieldvalueobjs[0].value    
     # if request.method == 'POST':
