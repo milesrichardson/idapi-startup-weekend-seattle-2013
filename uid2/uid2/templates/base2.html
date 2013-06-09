@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>UI2</title>
+		<title>IPAPI</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
 		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
@@ -17,7 +17,7 @@
 					<div id="site-title" class="pull-left">
 						<h1>
 							<a href="/">
-								<img id="site-logo" src="/static/images/logo.png" alt="UI2" />
+								<img id="site-logo" src="/static/images/logo.png" alt="IPAPI" />
 							</a>
 						</h1>
 					</div>
@@ -26,7 +26,11 @@
 			        		<ul class="nav nav-pills">
 			        			<li><a href="/">Home</a></li>
 			        			<li><a href="/about">About</a></li>
-			        			<li><a href="/accounts/login">Sign in</a></li>
+                    {% if user.is_authenticated %}
+			        			<li><a href="/accounts/logout">Sign out</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login">Sign in</a></li>
+                    {% endif %}
 			        			<li><a href="/contact">Contact</a></li>
 			        		</ul>
 			        	</div>

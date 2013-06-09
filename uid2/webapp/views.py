@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError, Http404, HttpResponseBadRequest
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
 import json
 import random
 
@@ -17,7 +18,7 @@ def home(request, template='home.html'):
         if form.is_valid():
             new_user = form.save()
             print 'user: ' +str(form.cleaned_data['username'])
-            # new_user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password1'])
+            new_user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password1'])
             return HttpResponseRedirect(reverse('thanks'))
     else:
         form = SignupForm()
