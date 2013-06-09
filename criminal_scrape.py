@@ -73,7 +73,7 @@ def main():
 	parser = argparse.ArgumentParser(description='Get Criminal Records')
 	parser.add_argument('--firstname', '-first', nargs='?', const=1, help="First Name of Person" )
 	parser.add_argument('--lastname', '-last', nargs='?', const=1, help="Last Name of Person" )
-	parser.add_argument('--searchall', '-searchall', nargs='?', const=1, help="Search all sources" )
+	parser.add_argument('--searchall', '-searchall', nargs='?', const=1, help="Search all sources (max of 1 request per second)" )
 	args = parser.parse_args()
 
 	if args.firstname and args.lastname:
