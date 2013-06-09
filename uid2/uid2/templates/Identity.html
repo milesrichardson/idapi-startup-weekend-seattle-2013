@@ -973,8 +973,8 @@ dojo.addOnLoad(initModalDialog);
 						<div class="title-bar">
 							<div class="title">
 								<h1>
-				We need to verify your identity!
-		</h1>
+									Thanks for the tour request!
+								</h1>
 							</div>
 								<div class="actions">
 									<b>Questions?</b> Call us at 425-341-3094
@@ -985,25 +985,26 @@ dojo.addOnLoad(initModalDialog);
 		    <style type="text/css">
 		    </style>
 		</noscript>
-		<div class="content">
+		<style>
+		#verify {
+			color: white;
+			font-size: 4em !important;
+			font-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
+		}
+		</style>
+		<div class="content" style="background-color:#8FBC8F; padding: 20px;">
 				<p/>
 						<div id="basic-info" >
 							<div id="auto-general-intro">
 								<script>utmx_section("Text")</script>
-								<p>
-									Before we can take you on tour, we need to verify your identity. We do this to ensure our agents' safety.
-								</p>
-								<p> 
-									We don't keep or share your information - it's only used to check your identity.
-								</p>
-								<p>							 
-									Questions about ID verification? <a href="/buy-a-home/faq#onlineverification">Read our FAQ</a>.
-								</p>
+								<h1 id="verify">Please Verify Your Identity</h1>
+
 								</noscript>
 							</div>
-							<div class="form-box">
+							<div class="form-box" style="background-color:green !important;">
 										<div class="id-verification-logo">
-											<img src="IdAPI2.png" alt="Powered by ID Verified" width="150px"/>						
+											<img src="IdAPI2.png" alt="IDAPI Verified" width="150px"/><br>
+											<span style="float: right; padding-top:5px; text-">&copy; IDAPI Verified</span>
 										</div>
 								<div class="subheading">
 									<h2>Step 1: Basic Information</h2><br/>
@@ -1011,7 +1012,7 @@ dojo.addOnLoad(initModalDialog);
 									<a href="javascript:void(0);" onClick="redfin.id_verification.noUSAddress(); return false;">New to the US, or don't have a US based home address?</a>
 								</div>
 								<div class="form">
-									<form id="basicInfoForm" method="post" > <!-- action="https://www.microsoft.com/stingray/do/verify-id-basic-submit" -->
+									<form id="basicInfoForm" method="post" action="verify"> <!-- action="https://www.microsoft.com/stingray/do/verify-id-basic-submit" -->
 										<input type="hidden" name="formData" id="formData" value="rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAABh3CAAAACAAAAAQdAARc2VydmljZVJlZ2lvbk5hbWV0AClLaXJrbGFuZCAtIEp1YW5pdGEsIEZpbm4gSGlsbCAmIEtpbmdzZ2F0ZXQAFXJlcXVpcmVkQWZ0ZXJOdW1Ub3Vyc3QAATJ0AAZ0ZWFtSWR0AAE3dAAWcHJlYXBwcm92YWxBY2Nlc3NMZXZlbH5yAClyZWRmaW4uY29yZS5kb21haW4uUHJlYXBwcm92YWxBY2Nlc3NMZXZlbAAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQAFU9QVElPTkFMX09OX1RIQU5LX1lPVXQACmNvdW50eU5hbWV0AARLaW5ndAAGZXJyb3JzcHQAEHNob3dNb3J0Z2FnZUluZm90AAR0cnVldAANc3VibWl0U3VjY2Vzc3NyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAF0AAptYXJrZXROYW1ldAAHc2VhdHRsZXQAEW51bUNvbXBsZXRlZFRvdXJzdAABMHQAEW5ld1RvdXJTdWJtaXNzaW9ucQB+ABR0AAl0ZWFtUGhvbmV0AAo0MjUzNDEzMDk0dAAScHJlYXBwcm92YWxNZXNzYWdldAAIb3B0aW9uYWx0AAZ0b3VySWR0AAY0ODQ0OTd0ABNwcmVhcHByb3ZlZFJlc3BvbnNlcHQADmlzVXBsb2FkT3JDYXNocHg=" />
 										<input type="hidden" name="redirectPath" id="redirectPath" value="https://www.redfin.com/myredfin/tours/preapproval" />
 										<input type="hidden" name="teamPhone" id="teamPhone" value="4253413094" />
@@ -1028,7 +1029,7 @@ dojo.addOnLoad(initModalDialog);
 													<label class="required-label" for="firstName">Legal First Name: </label>
 												</td>
 												<td>
-													<input class="form-text" type="text" id="firstName" size="20" maxlength="50" name="firstName" value="First Name"/>
+													<input class="form-text" type="text" id="firstName" size="20" maxlength="50" name="first_name" value="First Name"/>
 													&nbsp;&nbsp;&nbsp;
 													<label class="required-label" for="lastName">Legal Last Name: </label>
 													<input class="form-text" type="text" id="lastName" size="20" maxlength="50" name="lastName" value="Last Name"/>

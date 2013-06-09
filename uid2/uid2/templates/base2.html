@@ -17,7 +17,7 @@
 					<div id="site-title" class="pull-left">
 						<h1>
 							<a href="/">
-								<img id="site-logo" src="/static/images/logo.png" alt="UI2" />
+								<img id="site-logo" src="/static/images/logo.png" alt="IPAPI" />
 							</a>
 						</h1>
 					</div>
@@ -26,7 +26,11 @@
 			        		<ul class="nav nav-pills">
 			        			<li><a href="/">Home</a></li>
 			        			<li><a href="/about">About</a></li>
-			        			<li><a href="/accounts/login">Sign in</a></li>
+                    {% if user.is_authenticated %}
+			        			<li><a href="/accounts/logout">Sign out</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login">Sign in</a></li>
+                    {% endif %}
 			        			<li><a href="/contact">Contact</a></li>
 			        		</ul>
 			        	</div>
@@ -55,7 +59,7 @@
 				<div id="information" class="pull-left">
 					<h1>Identity Checking Simplified</h1>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Welcome to IDAPI.
 					</p>
 				</div>
 				<div id="sign-up-form" class="hero-unit pull-right">
