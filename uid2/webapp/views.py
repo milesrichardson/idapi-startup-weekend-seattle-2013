@@ -41,7 +41,7 @@ def redfin(request,template):
 
 def verify(request):
     try:
-        profile = list(FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=(request.POST['last_name'].upper())))[0].profile
+        profile = list(FieldValue.objects.filter(field=Field.objects.get(name='first_name'),value=(request.POST['first_name'].upper())))[0].profile
         first_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='first_name')))
         last_name = str(FieldValue.objects.filter(profile=profile).get(field=Field.objects.get(name='last_name')))
         name = first_name + last_name
@@ -81,7 +81,7 @@ def verify(request):
     context = Context({'name': name,'sex_offender':sex_offender})
     html_content = html_content.render(context)
     text_content = text_content.render(context)
-    subject, from_email, to = 'IDAPI: '+name+ ' '+"Failed" if sex_offender else "Passed", 'idapi.verify@gmail.com', 'theadriangreen@gmail.com'
+    subject, from_email, to = 'IDAPI: '+name+ ' '+"Failed" if sex_offender else "Passed", 'idapi.verify@gmail.com', 'jonzjia@gmail..com'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
