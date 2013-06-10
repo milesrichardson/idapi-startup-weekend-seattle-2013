@@ -81,7 +81,7 @@ def verify(request):
     context = Context({'name': name,'sex_offender':sex_offender})
     html_content = html_content.render(context)
     text_content = text_content.render(context)
-    subject, from_email, to = 'IDAPI: '+name+ ' '+"Failed" if sex_offender else "Passed", 'idapi.verify@gmail.com', 'jonzjia@gmail..com'
+    subject, from_email, to = 'IDAPI: '+name+ ' '+"Failed" if sex_offender else "Passed", 'idapi.verify@gmail.com', 'jonzjia@gmail.com'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
