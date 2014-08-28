@@ -1,3 +1,9 @@
+WHAT IS THIS?
+===================
+This was the result of Startup Weekend Seattle, Summer 2013, hosted at Redfin offices. We built (the beginnings of) an API for background checks. The model was pretty much the same as www.checkr.io (recent YC company). 
+
+We won 1st place for pitches, but did not place in final voting with the judges, who saw the business model as non-defensible.
+
 untitled-identity-2-
 ====================
 
